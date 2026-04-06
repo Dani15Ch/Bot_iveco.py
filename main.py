@@ -31,7 +31,8 @@ class KeepAlive(BaseHTTPRequestHandler):
         pass  # Silenciar logs del servidor
 
 def iniciar_servidor():
-    server = HTTPServer(("0.0.0.0", 8080), KeepAlive)
+    port = int(os.environ.get("PORT", 8080))
+    server = HTTPServer(("0.0.0.0", port), KeepAlive)
     server.serve_forever()
 
 threading.Thread(target=iniciar_servidor, daemon=True).start()
