@@ -20,7 +20,7 @@ LINK_CODIGO  = "https://buy.stripe.com/bJe8wPami9vKfwv3wP9fW02"  # 30€
 STATS_FILE = "stats.json"
 
 # =====================================================================
-# KEEP-ALIVE — servidor HTTP para que Replit no duerma el proceso
+# KEEP-ALIVE
 # =====================================================================
 class KeepAlive(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -28,7 +28,7 @@ class KeepAlive(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b"Bot IVECO activo")
     def log_message(self, format, *args):
-        pass  # Silenciar logs del servidor
+        pass
 
 def iniciar_servidor():
     port = int(os.environ.get("PORT", 8080))
@@ -36,6 +36,303 @@ def iniciar_servidor():
     server.serve_forever()
 
 threading.Thread(target=iniciar_servidor, daemon=True).start()
+
+# =====================================================================
+# TRADUCCIONES
+# =====================================================================
+TEXTOS = {
+    "es": {
+        "bienvenida": "🚛 *Bot Diagnóstico IVECO*\n\nSelecciona el servicio:",
+        "iniciar": "🚀 INICIAR — 5€",
+        "sintomas": "🧠 Síntomas — 10€",
+        "codigo": "🔍 Código error — 30€",
+        "estadisticas": "📊 Estadísticas",
+        "testigo": "¿Testigo encendido en el cuadro?",
+        "si": "Sí",
+        "no": "No",
+        "tipo_testigo": "Tipo de testigo:",
+        "motor": "Motor",
+        "frenos": "EBS / Frenos",
+        "scr": "SCR",
+        "radar": "Radar",
+        "caja": "Caja cambios",
+        "color_testigo": "Color del testigo:",
+        "amarillo": "🟡 Amarillo",
+        "rojo": "🔴 Rojo",
+        "limitado": "¿Vehículo limitado?",
+        "pagar_inicio": "🚀 *Consulta INICIO — 5€*\n\n1️⃣ Realiza el pago aquí:\n{link}\n\n2️⃣ Usa el *mismo email* con el que pagas\n\n3️⃣ Pulsa ✅ *Ya he pagado*",
+        "pagar_sintoma": "🧠 *Consulta SÍNTOMA — 10€*\n\n1️⃣ Realiza el pago aquí:\n{link}\n\n2️⃣ Usa el *mismo email* con el que pagas\n\n3️⃣ Pulsa ✅ *Ya he pagado*",
+        "pagar_codigo": "🔍 *Consulta CÓDIGO ERROR — 30€*\n\n1️⃣ Realiza el pago aquí:\n{link}\n\n2️⃣ Usa el *mismo email* con el que pagas\n\n3️⃣ Pulsa ✅ *Ya he pagado*",
+        "ya_pagado": "✅ Ya he pagado",
+        "volver": "🔙 Volver",
+        "pedir_email": "✉️ Introduce el *email* con el que realizaste el pago:",
+        "verificando": "🔄 Verificando pago...",
+        "pago_ok": "✅ Pago verificado. Tienes 1 consulta disponible.",
+        "continuar": "▶️ Continuar",
+        "pago_error": "❌ No se encontró el pago con ese email.\n\nComprueba que:\n• El email es correcto\n• El pago está completado\n• Espera unos segundos y reintenta",
+        "reintentar": "🔄 Reintentar",
+        "intro_codigo": "🔍 Introduce el código de error:\n_Formato: SPN FMI número (ej: 111 FMI 1)_",
+        "intro_sintoma": "🧠 Describe el síntoma del vehículo:\n\n_Ej: humo blanco, falta potencia, no arranca, tirones..._",
+        "codigo_no_encontrado": "❌ Código no encontrado.\n\nFormato correcto: *SPN FMI número*\nEjemplo: `111 FMI 1`\n\nVuelve a introducir el código:",
+        "sintoma_no_encontrado": "❌ Síntoma no reconocido.\n\nPrueba con: _humo blanco, humo negro, falta potencia, no arranca, tirones, consumo alto, fallo adblue..._",
+        "sistema": "🏷 Sistema",
+        "pasos": "🔧 *Pasos diagnóstico:*",
+        "enc_inicio": "📋 3 preguntas rápidas para valorar el bot.",
+        "enc1": "¿Le ha resultado fácil?",
+        "enc2": "¿Le ha parecido intuitivo?",
+        "enc3": "¿Le ha ayudado?",
+        "enc_fin": "✅ Gracias por su valoración.\n\nPara una nueva consulta vuelve a empezar:",
+        "scr_amarillo": "⚠️ Posible regeneración en curso",
+        "scr_rojo": "🔴 Fallo sistema SCR / módulo AdBlue bloqueado / fallo inyector / fuga AdBlue",
+        "motor_amarillo_lim_si": "⚠️ Posible fallo sistema SCR (vehículo limitado)",
+        "motor_amarillo_lim_no": "🔧 Revisar en taller",
+        "motor_rojo": "🔴 FALLO GRAVE → taller urgente",
+        "frenos_amarillo": "⚠️ Posible fallo sensores EBS / sensores velocidad ruedas",
+        "frenos_rojo": "🔴 Pérdida de aire / fallo eléctrico",
+        "radar_amarillo": "⚠️ Fallo calibración / radar desalineado / radar golpeado",
+        "radar_rojo": "🔴 Defecto radar / fallo eléctrico",
+        "caja_amarillo": "⚠️ Fallo eléctrico / fallo electroválvulas",
+        "caja_rojo": "🔴 Fuga de aire / bloqueo centralita",
+        "menu": "Selecciona el servicio:",
+        "coincidencias": "🔎 {n} coincidencias encontradas:\n\n{lista}\n\nIntroduce el código *completo*. Ejemplo: `111 FMI 1`",
+    },
+    "en": {
+        "bienvenida": "🚛 *IVECO Diagnostic Bot*\n\nSelect a service:",
+        "iniciar": "🚀 START — 5€",
+        "sintomas": "🧠 Symptoms — 10€",
+        "codigo": "🔍 Error code — 30€",
+        "estadisticas": "📊 Statistics",
+        "testigo": "Is there a warning light on the dashboard?",
+        "si": "Yes",
+        "no": "No",
+        "tipo_testigo": "Type of warning light:",
+        "motor": "Engine",
+        "frenos": "EBS / Brakes",
+        "scr": "SCR",
+        "radar": "Radar",
+        "caja": "Gearbox",
+        "color_testigo": "Warning light color:",
+        "amarillo": "🟡 Yellow",
+        "rojo": "🔴 Red",
+        "limitado": "Is the vehicle limited?",
+        "pagar_inicio": "🚀 *START Consultation — 5€*\n\n1️⃣ Make the payment here:\n{link}\n\n2️⃣ Use the *same email* you pay with\n\n3️⃣ Press ✅ *I have paid*",
+        "pagar_sintoma": "🧠 *SYMPTOM Consultation — 10€*\n\n1️⃣ Make the payment here:\n{link}\n\n2️⃣ Use the *same email* you pay with\n\n3️⃣ Press ✅ *I have paid*",
+        "pagar_codigo": "🔍 *ERROR CODE Consultation — 30€*\n\n1️⃣ Make the payment here:\n{link}\n\n2️⃣ Use the *same email* you pay with\n\n3️⃣ Press ✅ *I have paid*",
+        "ya_pagado": "✅ I have paid",
+        "volver": "🔙 Back",
+        "pedir_email": "✉️ Enter the *email* you used for the payment:",
+        "verificando": "🔄 Verifying payment...",
+        "pago_ok": "✅ Payment verified. You have 1 consultation available.",
+        "continuar": "▶️ Continue",
+        "pago_error": "❌ Payment not found with that email.\n\nCheck that:\n• The email is correct\n• The payment is completed\n• Wait a few seconds and try again",
+        "reintentar": "🔄 Retry",
+        "intro_codigo": "🔍 Enter the error code:\n_Format: SPN FMI number (e.g: 111 FMI 1)_",
+        "intro_sintoma": "🧠 Describe the vehicle symptom:\n\n_E.g: white smoke, lack of power, won't start, misfiring..._",
+        "codigo_no_encontrado": "❌ Code not found.\n\nCorrect format: *SPN FMI number*\nExample: `111 FMI 1`\n\nEnter the code again:",
+        "sintoma_no_encontrado": "❌ Symptom not recognized.\n\nTry: _white smoke, black smoke, lack of power, won't start, misfiring, high consumption, adblue fault..._",
+        "sistema": "🏷 System",
+        "pasos": "🔧 *Diagnostic steps:*",
+        "enc_inicio": "📋 3 quick questions to rate the bot.",
+        "enc1": "Was it easy to use?",
+        "enc2": "Was it intuitive?",
+        "enc3": "Did it help you?",
+        "enc_fin": "✅ Thank you for your feedback.\n\nFor a new consultation start again:",
+        "scr_amarillo": "⚠️ Possible ongoing regeneration",
+        "scr_rojo": "🔴 SCR system failure / AdBlue module blocked / injector fault / AdBlue leak",
+        "motor_amarillo_lim_si": "⚠️ Possible SCR system fault (vehicle limited)",
+        "motor_amarillo_lim_no": "🔧 Check at workshop",
+        "motor_rojo": "🔴 SERIOUS FAULT → urgent workshop",
+        "frenos_amarillo": "⚠️ Possible EBS sensor fault / wheel speed sensors",
+        "frenos_rojo": "🔴 Air loss / electrical fault",
+        "radar_amarillo": "⚠️ Calibration fault / misaligned radar / damaged radar",
+        "radar_rojo": "🔴 Radar defect / electrical fault",
+        "caja_amarillo": "⚠️ Electrical fault / solenoid valve fault",
+        "caja_rojo": "🔴 Air leak / ECU lockout",
+        "menu": "Select a service:",
+        "coincidencias": "🔎 {n} matches found:\n\n{lista}\n\nEnter the *full* code. Example: `111 FMI 1`",
+    },
+    "fr": {
+        "bienvenida": "🚛 *Bot Diagnostic IVECO*\n\nSélectionnez un service:",
+        "iniciar": "🚀 DÉMARRER — 5€",
+        "sintomas": "🧠 Symptômes — 10€",
+        "codigo": "🔍 Code erreur — 30€",
+        "estadisticas": "📊 Statistiques",
+        "testigo": "Y a-t-il un voyant allumé au tableau de bord?",
+        "si": "Oui",
+        "no": "Non",
+        "tipo_testigo": "Type de voyant:",
+        "motor": "Moteur",
+        "frenos": "EBS / Freins",
+        "scr": "SCR",
+        "radar": "Radar",
+        "caja": "Boîte de vitesses",
+        "color_testigo": "Couleur du voyant:",
+        "amarillo": "🟡 Jaune",
+        "rojo": "🔴 Rouge",
+        "limitado": "Le véhicule est-il limité?",
+        "pagar_inicio": "🚀 *Consultation DÉMARRAGE — 5€*\n\n1️⃣ Effectuez le paiement ici:\n{link}\n\n2️⃣ Utilisez le *même email* que pour le paiement\n\n3️⃣ Appuyez sur ✅ *J'ai payé*",
+        "pagar_sintoma": "🧠 *Consultation SYMPTÔME — 10€*\n\n1️⃣ Effectuez le paiement ici:\n{link}\n\n2️⃣ Utilisez le *même email* que pour le paiement\n\n3️⃣ Appuyez sur ✅ *J'ai payé*",
+        "pagar_codigo": "🔍 *Consultation CODE ERREUR — 30€*\n\n1️⃣ Effectuez le paiement ici:\n{link}\n\n2️⃣ Utilisez le *même email* que pour le paiement\n\n3️⃣ Appuyez sur ✅ *J'ai payé*",
+        "ya_pagado": "✅ J'ai payé",
+        "volver": "🔙 Retour",
+        "pedir_email": "✉️ Entrez l'*email* utilisé pour le paiement:",
+        "verificando": "🔄 Vérification du paiement...",
+        "pago_ok": "✅ Paiement vérifié. Vous avez 1 consultation disponible.",
+        "continuar": "▶️ Continuer",
+        "pago_error": "❌ Paiement non trouvé avec cet email.\n\nVérifiez que:\n• L'email est correct\n• Le paiement est complété\n• Attendez quelques secondes et réessayez",
+        "reintentar": "🔄 Réessayer",
+        "intro_codigo": "🔍 Entrez le code d'erreur:\n_Format: SPN FMI numéro (ex: 111 FMI 1)_",
+        "intro_sintoma": "🧠 Décrivez le symptôme du véhicule:\n\n_Ex: fumée blanche, manque de puissance, ne démarre pas..._",
+        "codigo_no_encontrado": "❌ Code non trouvé.\n\nFormat correct: *SPN FMI numéro*\nExemple: `111 FMI 1`\n\nEntrez à nouveau le code:",
+        "sintoma_no_encontrado": "❌ Symptôme non reconnu.\n\nEssayez: _fumée blanche, fumée noire, manque de puissance, ne démarre pas..._",
+        "sistema": "🏷 Système",
+        "pasos": "🔧 *Étapes de diagnostic:*",
+        "enc_inicio": "📋 3 questions rapides pour évaluer le bot.",
+        "enc1": "Était-ce facile à utiliser?",
+        "enc2": "Était-ce intuitif?",
+        "enc3": "Cela vous a-t-il aidé?",
+        "enc_fin": "✅ Merci pour votre évaluation.\n\nPour une nouvelle consultation recommencez:",
+        "scr_amarillo": "⚠️ Possible régénération en cours",
+        "scr_rojo": "🔴 Défaillance système SCR / module AdBlue bloqué / injecteur / fuite AdBlue",
+        "motor_amarillo_lim_si": "⚠️ Possible défaillance système SCR (véhicule limité)",
+        "motor_amarillo_lim_no": "🔧 Vérifier en atelier",
+        "motor_rojo": "🔴 DÉFAILLANCE GRAVE → atelier urgent",
+        "frenos_amarillo": "⚠️ Possible défaillance capteurs EBS / capteurs vitesse roues",
+        "frenos_rojo": "🔴 Perte d'air / défaillance électrique",
+        "radar_amarillo": "⚠️ Défaut calibration / radar désaligné / radar endommagé",
+        "radar_rojo": "🔴 Défaut radar / défaillance électrique",
+        "caja_amarillo": "⚠️ Défaillance électrique / électrovanne",
+        "caja_rojo": "🔴 Fuite d'air / blocage calculateur",
+        "menu": "Sélectionnez un service:",
+        "coincidencias": "🔎 {n} correspondances trouvées:\n\n{liste}\n\nEntrez le code *complet*. Exemple: `111 FMI 1`",
+    },
+    "pt": {
+        "bienvenida": "🚛 *Bot Diagnóstico IVECO*\n\nSelecione um serviço:",
+        "iniciar": "🚀 INICIAR — 5€",
+        "sintomas": "🧠 Sintomas — 10€",
+        "codigo": "🔍 Código de erro — 30€",
+        "estadisticas": "📊 Estatísticas",
+        "testigo": "Há alguma luz de aviso no painel?",
+        "si": "Sim",
+        "no": "Não",
+        "tipo_testigo": "Tipo de aviso:",
+        "motor": "Motor",
+        "frenos": "EBS / Freios",
+        "scr": "SCR",
+        "radar": "Radar",
+        "caja": "Caixa de câmbio",
+        "color_testigo": "Cor da luz de aviso:",
+        "amarillo": "🟡 Amarelo",
+        "rojo": "🔴 Vermelho",
+        "limitado": "O veículo está limitado?",
+        "pagar_inicio": "🚀 *Consulta INÍCIO — 5€*\n\n1️⃣ Faça o pagamento aqui:\n{link}\n\n2️⃣ Use o *mesmo email* do pagamento\n\n3️⃣ Pressione ✅ *Já paguei*",
+        "pagar_sintoma": "🧠 *Consulta SINTOMA — 10€*\n\n1️⃣ Faça o pagamento aqui:\n{link}\n\n2️⃣ Use o *mesmo email* do pagamento\n\n3️⃣ Pressione ✅ *Já paguei*",
+        "pagar_codigo": "🔍 *Consulta CÓDIGO ERRO — 30€*\n\n1️⃣ Faça o pagamento aqui:\n{link}\n\n2️⃣ Use o *mesmo email* do pagamento\n\n3️⃣ Pressione ✅ *Já paguei*",
+        "ya_pagado": "✅ Já paguei",
+        "volver": "🔙 Voltar",
+        "pedir_email": "✉️ Introduza o *email* utilizado no pagamento:",
+        "verificando": "🔄 Verificando pagamento...",
+        "pago_ok": "✅ Pagamento verificado. Tem 1 consulta disponível.",
+        "continuar": "▶️ Continuar",
+        "pago_error": "❌ Pagamento não encontrado com esse email.\n\nVerifique que:\n• O email está correto\n• O pagamento foi concluído\n• Aguarde alguns segundos e tente novamente",
+        "reintentar": "🔄 Tentar novamente",
+        "intro_codigo": "🔍 Introduza o código de erro:\n_Formato: SPN FMI número (ex: 111 FMI 1)_",
+        "intro_sintoma": "🧠 Descreva o sintoma do veículo:\n\n_Ex: fumo branco, falta de potência, não arranca, solavancos..._",
+        "codigo_no_encontrado": "❌ Código não encontrado.\n\nFormato correto: *SPN FMI número*\nExemplo: `111 FMI 1`\n\nIntroduza o código novamente:",
+        "sintoma_no_encontrado": "❌ Sintoma não reconhecido.\n\nTente: _fumo branco, fumo preto, falta de potência, não arranca..._",
+        "sistema": "🏷 Sistema",
+        "pasos": "🔧 *Passos de diagnóstico:*",
+        "enc_inicio": "📋 3 perguntas rápidas para avaliar o bot.",
+        "enc1": "Foi fácil de usar?",
+        "enc2": "Foi intuitivo?",
+        "enc3": "Ajudou-o?",
+        "enc_fin": "✅ Obrigado pela sua avaliação.\n\nPara uma nova consulta comece novamente:",
+        "scr_amarillo": "⚠️ Possível regeneração em curso",
+        "scr_rojo": "🔴 Falha sistema SCR / módulo AdBlue bloqueado / injetor / fuga AdBlue",
+        "motor_amarillo_lim_si": "⚠️ Possível falha sistema SCR (veículo limitado)",
+        "motor_amarillo_lim_no": "🔧 Verificar na oficina",
+        "motor_rojo": "🔴 FALHA GRAVE → oficina urgente",
+        "frenos_amarillo": "⚠️ Possível falha sensores EBS / sensores velocidade rodas",
+        "frenos_rojo": "🔴 Perda de ar / falha elétrica",
+        "radar_amarillo": "⚠️ Falha calibração / radar desalinhado / radar danificado",
+        "radar_rojo": "🔴 Defeito radar / falha elétrica",
+        "caja_amarillo": "⚠️ Falha elétrica / eletroválvula",
+        "caja_rojo": "🔴 Fuga de ar / bloqueio centralita",
+        "menu": "Selecione um serviço:",
+        "coincidencias": "🔎 {n} correspondências encontradas:\n\n{lista}\n\nIntroduza o código *completo*. Exemplo: `111 FMI 1`",
+    },
+    "ru": {
+        "bienvenida": "🚛 *Бот диагностики IVECO*\n\nВыберите услугу:",
+        "iniciar": "🚀 СТАРТ — 5€",
+        "sintomas": "🧠 Симптомы — 10€",
+        "codigo": "🔍 Код ошибки — 30€",
+        "estadisticas": "📊 Статистика",
+        "testigo": "Есть ли предупредительный сигнал на панели?",
+        "si": "Да",
+        "no": "Нет",
+        "tipo_testigo": "Тип сигнала:",
+        "motor": "Двигатель",
+        "frenos": "EBS / Тормоза",
+        "scr": "SCR",
+        "radar": "Радар",
+        "caja": "Коробка передач",
+        "color_testigo": "Цвет сигнала:",
+        "amarillo": "🟡 Жёлтый",
+        "rojo": "🔴 Красный",
+        "limitado": "Автомобиль ограничен?",
+        "pagar_inicio": "🚀 *Консультация СТАРТ — 5€*\n\n1️⃣ Оплатите здесь:\n{link}\n\n2️⃣ Используйте *тот же email* что при оплате\n\n3️⃣ Нажмите ✅ *Я оплатил*",
+        "pagar_sintoma": "🧠 *Консультация СИМПТОМ — 10€*\n\n1️⃣ Оплатите здесь:\n{link}\n\n2️⃣ Используйте *тот же email* что при оплате\n\n3️⃣ Нажмите ✅ *Я оплатил*",
+        "pagar_codigo": "🔍 *Консультация КОД ОШИБКИ — 30€*\n\n1️⃣ Оплатите здесь:\n{link}\n\n2️⃣ Используйте *тот же email* что при оплате\n\n3️⃣ Нажмите ✅ *Я оплатил*",
+        "ya_pagado": "✅ Я оплатил",
+        "volver": "🔙 Назад",
+        "pedir_email": "✉️ Введите *email* использованный при оплате:",
+        "verificando": "🔄 Проверка оплаты...",
+        "pago_ok": "✅ Оплата подтверждена. У вас 1 консультация.",
+        "continuar": "▶️ Продолжить",
+        "pago_error": "❌ Оплата не найдена с этим email.\n\nПроверьте:\n• Email верный\n• Оплата завершена\n• Подождите и попробуйте снова",
+        "reintentar": "🔄 Повторить",
+        "intro_codigo": "🔍 Введите код ошибки:\n_Формат: SPN FMI номер (пр: 111 FMI 1)_",
+        "intro_sintoma": "🧠 Опишите симптом автомобиля:\n\n_Пр: белый дым, потеря мощности, не заводится..._",
+        "codigo_no_encontrado": "❌ Код не найден.\n\nПравильный формат: *SPN FMI номер*\nПример: `111 FMI 1`\n\nВведите код снова:",
+        "sintoma_no_encontrado": "❌ Симптом не распознан.\n\nПопробуйте: _белый дым, чёрный дым, потеря мощности, не заводится..._",
+        "sistema": "🏷 Система",
+        "pasos": "🔧 *Шаги диагностики:*",
+        "enc_inicio": "📋 3 быстрых вопроса для оценки бота.",
+        "enc1": "Было ли легко использовать?",
+        "enc2": "Было ли интуитивно понятно?",
+        "enc3": "Помогло ли вам?",
+        "enc_fin": "✅ Спасибо за оценку.\n\nДля новой консультации начните снова:",
+        "scr_amarillo": "⚠️ Возможная регенерация в процессе",
+        "scr_rojo": "🔴 Неисправность SCR / заблокирован модуль AdBlue / инжектор / утечка AdBlue",
+        "motor_amarillo_lim_si": "⚠️ Возможная неисправность SCR (автомобиль ограничен)",
+        "motor_amarillo_lim_no": "🔧 Проверить в мастерской",
+        "motor_rojo": "🔴 СЕРЬЁЗНАЯ НЕИСПРАВНОСТЬ → срочно в мастерскую",
+        "frenos_amarillo": "⚠️ Возможная неисправность датчиков EBS / датчиков скорости колёс",
+        "frenos_rojo": "🔴 Потеря воздуха / электрическая неисправность",
+        "radar_amarillo": "⚠️ Ошибка калибровки / смещение радара / повреждение радара",
+        "radar_rojo": "🔴 Дефект радара / электрическая неисправность",
+        "caja_amarillo": "⚠️ Электрическая неисправность / соленоидный клапан",
+        "caja_rojo": "🔴 Утечка воздуха / блокировка ЭБУ",
+        "menu": "Выберите услугу:",
+        "coincidencias": "🔎 Найдено {n} совпадений:\n\n{lista}\n\nВведите *полный* код. Пример: `111 FMI 1`",
+    },
+}
+
+def get_lang(update):
+    """Detecta el idioma del usuario desde Telegram."""
+    lang = update.effective_user.language_code or "es"
+    lang = lang[:2].lower()
+    if lang not in TEXTOS:
+        lang = "en"
+    return lang
+
+def t(update, key, **kwargs):
+    """Devuelve el texto en el idioma del usuario."""
+    lang = get_lang(update)
+    texto = TEXTOS[lang].get(key, TEXTOS["es"].get(key, key))
+    if kwargs:
+        texto = texto.format(**kwargs)
+    return texto
 
 # =====================================================================
 # BASE DE DATOS CÓDIGOS REALES IVECO
@@ -160,20 +457,45 @@ CODIGOS = {
 # =====================================================================
 SINTOMAS = {
     "humo blanco":    "Posible inyector averiado / junta culata / pérdida de compresión",
+    "white smoke":    "Possible faulty injector / head gasket / compression loss",
+    "fumée blanche":  "Possible injecteur défaillant / joint de culasse / perte de compression",
+    "fumo branco":    "Possível injetor avariado / junta da cabeça / perda de compressão",
+    "белый дым":      "Возможно: неисправный инжектор / прокладка головки / потеря компрессии",
     "humo negro":     "Exceso combustible: inyectores / turbo / EGR bloqueado / MAF",
-    "humo azul":      "Consumo aceite: sellos válvulas / segmentos / turbo",
+    "black smoke":    "Excess fuel: injectors / turbo / blocked EGR / MAF",
+    "fumée noire":    "Excès de carburant: injecteurs / turbo / EGR bloqué / MAF",
+    "fumo preto":     "Excesso combustível: injetores / turbo / EGR bloqueado / MAF",
+    "чёрный дым":     "Избыток топлива: инжекторы / турбо / заблокирован EGR / MAF",
     "falta potencia": "Revisar: turbo / filtro aire / EGR / sistema combustible",
+    "lack of power":  "Check: turbo / air filter / EGR / fuel system",
+    "manque de puissance": "Vérifier: turbo / filtre à air / EGR / système carburant",
+    "falta de potência": "Verificar: turbo / filtro de ar / EGR / sistema combustível",
+    "потеря мощности": "Проверить: турбо / воздушный фильтр / EGR / топливная система",
     "no arranca":     "Revisar: batería / motor arranque / combustible / sensor régimen",
-    "sin arranque":   "Revisar: batería / precalentamiento / combustible / ECM",
+    "won't start":    "Check: battery / starter motor / fuel / crankshaft sensor",
+    "ne démarre pas": "Vérifier: batterie / démarreur / carburant / capteur vilebrequin",
+    "não arranca":    "Verificar: bateria / motor de arranque / combustível / sensor",
+    "не заводится":   "Проверить: аккумулятор / стартер / топливо / датчик коленвала",
     "tirones":        "Revisar: inyección / sensores MAF-MAP / filtro aire",
+    "misfiring":      "Check: injection / MAF-MAP sensors / air filter",
+    "ratés":          "Vérifier: injection / capteurs MAF-MAP / filtre à air",
+    "solavancos":     "Verificar: injeção / sensores MAF-MAP / filtro de ar",
+    "рывки":          "Проверить: впрыск / датчики MAF-MAP / воздушный фильтр",
     "consumo alto":   "Revisar: MAF / inyección / turbo / EGR",
+    "high consumption": "Check: MAF / injection / turbo / EGR",
+    "consommation élevée": "Vérifier: MAF / injection / turbo / EGR",
+    "consumo alto pt": "Verificar: MAF / injeção / turbo / EGR",
+    "высокий расход": "Проверить: MAF / впрыск / турбо / EGR",
     "fallo adblue":   "Revisar: sistema SCR / inyector AdBlue / bomba / sensor NOx",
+    "adblue fault":   "Check: SCR system / AdBlue injector / pump / NOx sensor",
+    "défaut adblue":  "Vérifier: système SCR / injecteur AdBlue / pompe / capteur NOx",
+    "falha adblue":   "Verificar: sistema SCR / injetor AdBlue / bomba / sensor NOx",
+    "ошибка adblue":  "Проверить: система SCR / форсунка AdBlue / насос / датчик NOx",
     "ruido motor":    "Revisar: nivel aceite / presión aceite / distribución / cojinetes",
-    "frenos duros":   "Revisar: servofreno / presión aire / válvulas freno",
-    "embrague":       "Revisar: actuador embrague / desgaste disco / hidráulico",
-    "vibración":      "Revisar: soportes motor / cardán / ruedas / embrague",
-    "no cambia":      "Revisar: TCU / actuadores caja / presión aire / sensor posición",
-    "caliente":       "Revisar: nivel refrigerante / termostato / bomba agua / radiador",
+    "engine noise":   "Check: oil level / oil pressure / timing / bearings",
+    "bruit moteur":   "Vérifier: niveau huile / pression huile / distribution / paliers",
+    "ruído motor":    "Verificar: nível óleo / pressão óleo / distribuição / rolamentos",
+    "шум двигателя":  "Проверить: уровень масла / давление масла / ГРМ / подшипники",
 }
 
 # =====================================================================
@@ -230,41 +552,41 @@ def verificar_pago(email, link):
 # =====================================================================
 # BOTONES
 # =====================================================================
-def btn_inicio(user_id=None):
+def btn_inicio(update, user_id=None):
     botones = [
-        [InlineKeyboardButton("🚀 INICIAR — 5€", callback_data="pagar_inicio")],
-        [InlineKeyboardButton("🧠 Síntomas — 10€", callback_data="pagar_sintoma")],
-        [InlineKeyboardButton("🔍 Código error — 30€", callback_data="pagar_codigo")],
+        [InlineKeyboardButton(t(update, "iniciar"), callback_data="pagar_inicio")],
+        [InlineKeyboardButton(t(update, "sintomas"), callback_data="pagar_sintoma")],
+        [InlineKeyboardButton(t(update, "codigo"), callback_data="pagar_codigo")],
     ]
     if str(user_id) == str(ADMIN_ID):
-        botones.append([InlineKeyboardButton("📊 Estadísticas", callback_data="stats")])
+        botones.append([InlineKeyboardButton(t(update, "estadisticas"), callback_data="stats")])
     return InlineKeyboardMarkup(botones)
 
-def btn_si_no(base):
+def btn_si_no(update, base):
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("Sí", callback_data=f"{base}_si"),
-         InlineKeyboardButton("No", callback_data=f"{base}_no")]
+        [InlineKeyboardButton(t(update, "si"), callback_data=f"{base}_si"),
+         InlineKeyboardButton(t(update, "no"), callback_data=f"{base}_no")]
     ])
 
-def btn_tipo():
+def btn_tipo(update):
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("Motor", callback_data="motor")],
-        [InlineKeyboardButton("EBS / Frenos", callback_data="frenos")],
-        [InlineKeyboardButton("SCR", callback_data="scr")],
-        [InlineKeyboardButton("Radar", callback_data="radar")],
-        [InlineKeyboardButton("Caja cambios", callback_data="caja")]
+        [InlineKeyboardButton(t(update, "motor"), callback_data="motor")],
+        [InlineKeyboardButton(t(update, "frenos"), callback_data="frenos")],
+        [InlineKeyboardButton(t(update, "scr"), callback_data="scr")],
+        [InlineKeyboardButton(t(update, "radar"), callback_data="radar")],
+        [InlineKeyboardButton(t(update, "caja"), callback_data="caja")]
     ])
 
-def btn_color():
+def btn_color(update):
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("🟡 Amarillo", callback_data="amarillo"),
-         InlineKeyboardButton("🔴 Rojo", callback_data="rojo")]
+        [InlineKeyboardButton(t(update, "amarillo"), callback_data="amarillo"),
+         InlineKeyboardButton(t(update, "rojo"), callback_data="rojo")]
     ])
 
-def btn_confirmar_pago(tipo):
+def btn_confirmar_pago(update, tipo):
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("✅ Ya he pagado", callback_data=f"confirmar_{tipo}")],
-        [InlineKeyboardButton("🔙 Volver", callback_data="volver")]
+        [InlineKeyboardButton(t(update, "ya_pagado"), callback_data=f"confirmar_{tipo}")],
+        [InlineKeyboardButton(t(update, "volver"), callback_data="volver")]
     ])
 
 # =====================================================================
@@ -278,19 +600,20 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         stats["usuarios"].append(str(user_id))
     guardar_stats(stats)
     context.user_data.clear()
-    await update.effective_message.reply_text("Iniciando...", reply_markup=ReplyKeyboardRemove())
+    context.user_data["lang"] = get_lang(update)
+    await update.effective_message.reply_text("...", reply_markup=ReplyKeyboardRemove())
     await update.effective_message.reply_text(
-        "🚛 *Bot Diagnóstico IVECO*\n\nSelecciona el servicio:",
+        t(update, "bienvenida"),
         parse_mode="Markdown",
-        reply_markup=btn_inicio(user_id)
+        reply_markup=btn_inicio(update, user_id)
     )
 
 # =====================================================================
 # ENCUESTA
 # =====================================================================
-async def lanzar_encuesta(message):
-    await message.reply_text("📋 3 preguntas rápidas para valorar el bot.")
-    await message.reply_text("¿Le ha resultado fácil?", reply_markup=btn_si_no("enc1"))
+async def lanzar_encuesta(message, update):
+    await message.reply_text(t(update, "enc_inicio"))
+    await message.reply_text(t(update, "enc1"), reply_markup=btn_si_no(update, "enc1"))
 
 # =====================================================================
 # BOTONES
@@ -304,112 +627,93 @@ async def botones(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if d == "pagar_inicio":
         context.user_data.clear()
-        context.user_data["servicio"] = "inicio"
         await q.edit_message_text(
-            "🚀 *Consulta INICIO — 5€*\n\n"
-            "1️⃣ Realiza el pago aquí:\n" + LINK_INICIO +
-            "\n\n2️⃣ Usa el *mismo email* con el que pagas\n\n"
-            "3️⃣ Pulsa ✅ *Ya he pagado*",
+            t(update, "pagar_inicio", link=LINK_INICIO),
             parse_mode="Markdown",
-            reply_markup=btn_confirmar_pago("inicio")
+            reply_markup=btn_confirmar_pago(update, "inicio")
         )
 
     elif d == "pagar_sintoma":
         context.user_data.clear()
-        context.user_data["servicio"] = "sintoma"
         await q.edit_message_text(
-            "🧠 *Consulta SÍNTOMA — 10€*\n\n"
-            "1️⃣ Realiza el pago aquí:\n" + LINK_SINTOMA +
-            "\n\n2️⃣ Usa el *mismo email* con el que pagas\n\n"
-            "3️⃣ Pulsa ✅ *Ya he pagado*",
+            t(update, "pagar_sintoma", link=LINK_SINTOMA),
             parse_mode="Markdown",
-            reply_markup=btn_confirmar_pago("sintoma")
+            reply_markup=btn_confirmar_pago(update, "sintoma")
         )
 
     elif d == "pagar_codigo":
         context.user_data.clear()
-        context.user_data["servicio"] = "codigo"
         await q.edit_message_text(
-            "🔍 *Consulta CÓDIGO ERROR — 30€*\n\n"
-            "1️⃣ Realiza el pago aquí:\n" + LINK_CODIGO +
-            "\n\n2️⃣ Usa el *mismo email* con el que pagas\n\n"
-            "3️⃣ Pulsa ✅ *Ya he pagado*",
+            t(update, "pagar_codigo", link=LINK_CODIGO),
             parse_mode="Markdown",
-            reply_markup=btn_confirmar_pago("codigo")
+            reply_markup=btn_confirmar_pago(update, "codigo")
         )
 
     elif d.startswith("confirmar_"):
         tipo = d.split("_")[1]
         context.user_data["esperando_email"] = tipo
-        await q.edit_message_text(
-            "✉️ Introduce el *email* con el que realizaste el pago:",
-            parse_mode="Markdown"
-        )
+        await q.edit_message_text(t(update, "pedir_email"), parse_mode="Markdown")
 
     elif d == "inicio_verificado":
-        await q.edit_message_text("¿Testigo en cuadro?", reply_markup=btn_si_no("testigo"))
+        await q.edit_message_text(t(update, "testigo"), reply_markup=btn_si_no(update, "testigo"))
 
     elif d == "testigo_si":
-        await q.edit_message_text("Tipo de testigo:", reply_markup=btn_tipo())
+        await q.edit_message_text(t(update, "tipo_testigo"), reply_markup=btn_tipo(update))
 
     elif d == "testigo_no":
         context.user_data["modo_sintomas_libre"] = True
-        await q.edit_message_text(
-            "Describe el síntoma del vehículo:\n\n"
-            "_Ej: humo blanco, falta potencia, no arranca, tirones..._",
-            parse_mode="Markdown"
-        )
+        await q.edit_message_text(t(update, "intro_sintoma"), parse_mode="Markdown")
 
     elif d in ["motor", "frenos", "scr", "radar", "caja"]:
         context.user_data["tipo"] = d
-        await q.edit_message_text("Color del testigo:", reply_markup=btn_color())
+        await q.edit_message_text(t(update, "color_testigo"), reply_markup=btn_color(update))
 
     elif d == "amarillo" and context.user_data.get("tipo") == "motor":
-        await q.edit_message_text("¿Vehículo limitado?", reply_markup=btn_si_no("lim"))
+        await q.edit_message_text(t(update, "limitado"), reply_markup=btn_si_no(update, "lim"))
 
     elif d == "lim_si":
-        await q.edit_message_text("⚠️ Posible fallo sistema SCR (vehículo limitado)")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "motor_amarillo_lim_si"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "lim_no":
-        await q.edit_message_text("🔧 Revisar en taller")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "motor_amarillo_lim_no"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "rojo" and context.user_data.get("tipo") == "motor":
-        await q.edit_message_text("🔴 FALLO GRAVE → taller urgente")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "motor_rojo"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "amarillo" and context.user_data.get("tipo") == "frenos":
-        await q.edit_message_text("⚠️ Posible fallo sensores EBS / sensores velocidad ruedas")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "frenos_amarillo"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "rojo" and context.user_data.get("tipo") == "frenos":
-        await q.edit_message_text("🔴 Pérdida de aire / fallo eléctrico")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "frenos_rojo"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "amarillo" and context.user_data.get("tipo") == "scr":
-        await q.edit_message_text("⚠️ Posible regeneración en curso")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "scr_amarillo"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "rojo" and context.user_data.get("tipo") == "scr":
-        await q.edit_message_text("🔴 Fallo sistema SCR / módulo AdBlue bloqueado / fallo inyector / fuga AdBlue")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "scr_rojo"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "amarillo" and context.user_data.get("tipo") == "radar":
-        await q.edit_message_text("⚠️ Fallo calibración / radar desalineado / radar golpeado")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "radar_amarillo"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "rojo" and context.user_data.get("tipo") == "radar":
-        await q.edit_message_text("🔴 Defecto radar / fallo eléctrico")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "radar_rojo"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "amarillo" and context.user_data.get("tipo") == "caja":
-        await q.edit_message_text("⚠️ Fallo eléctrico / fallo electroválvulas")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "caja_amarillo"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "rojo" and context.user_data.get("tipo") == "caja":
-        await q.edit_message_text("🔴 Fuga de aire / bloqueo centralita")
-        await lanzar_encuesta(q.message)
+        await q.edit_message_text(t(update, "caja_rojo"))
+        await lanzar_encuesta(q.message, update)
 
     elif d == "stats":
         if str(user_id) != str(ADMIN_ID):
@@ -425,44 +729,37 @@ async def botones(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     stats["ingresos_sintoma"] * 10 +
                     stats["ingresos_codigo"] * 30)
         texto = (
-            f"📊 *Estadísticas*\n\n"
+            f"📊 *Estadísticas IVECO*\n\n"
             f"Usos totales: {stats['usos']}\n"
             f"Usuarios únicos: {len(stats['usuarios'])}\n"
             f"Códigos consultados: {len(codigos)}\n\n"
             f"💶 *Ingresos estimados: {ingresos}€*\n"
             f"  Inicio: {stats['ingresos_inicio']} consultas\n"
             f"  Síntoma: {stats['ingresos_sintoma']} consultas\n"
-            f"  Código: {stats['ingresos_codigo']} consultas\n\n"
-            f"📋 *Encuestas:*\n"
-            f"¿Fácil?      ✅ {stats['facil_si']}  ❌ {stats['facil_no']}\n"
-            f"¿Intuitivo?  ✅ {stats['intuitivo_si']}  ❌ {stats['intuitivo_no']}\n"
-            f"¿Útil?       ✅ {stats['util_si']}  ❌ {stats['util_no']}"
+            f"  Código: {stats['ingresos_codigo']} consultas"
             f"{top}"
         )
         await q.edit_message_text(texto, parse_mode="Markdown",
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔙 Volver", callback_data="volver")]]))
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(t(update, "volver"), callback_data="volver")]]))
 
     elif d == "volver":
         context.user_data.clear()
-        await q.edit_message_text("Selecciona el servicio:", reply_markup=btn_inicio(user_id))
+        await q.edit_message_text(t(update, "menu"), reply_markup=btn_inicio(update, user_id))
 
     elif d.startswith("enc1"):
         stats["facil_si" if "si" in d else "facil_no"] += 1
         guardar_stats(stats)
-        await q.edit_message_text("¿Le ha parecido intuitivo?", reply_markup=btn_si_no("enc2"))
+        await q.edit_message_text(t(update, "enc2"), reply_markup=btn_si_no(update, "enc2"))
 
     elif d.startswith("enc2"):
         stats["intuitivo_si" if "si" in d else "intuitivo_no"] += 1
         guardar_stats(stats)
-        await q.edit_message_text("¿Le ha ayudado?", reply_markup=btn_si_no("enc3"))
+        await q.edit_message_text(t(update, "enc3"), reply_markup=btn_si_no(update, "enc3"))
 
     elif d.startswith("enc3"):
         stats["util_si" if "si" in d else "util_no"] += 1
         guardar_stats(stats)
-        await q.edit_message_text(
-            "✅ Gracias por su valoración.\n\nPara una nueva consulta vuelve a empezar:",
-            reply_markup=btn_inicio(user_id)
-        )
+        await q.edit_message_text(t(update, "enc_fin"), reply_markup=btn_inicio(update, user_id))
 
 # =====================================================================
 # TEXTO
@@ -477,20 +774,18 @@ async def texto(update: Update, context: ContextTypes.DEFAULT_TYPE):
         email = texto_user.strip().lower()
         link = {"inicio": LINK_INICIO, "sintoma": LINK_SINTOMA, "codigo": LINK_CODIGO}[tipo]
 
-        await update.message.reply_text("🔄 Verificando pago...")
+        await update.message.reply_text(t(update, "verificando"))
         pagado = verificar_pago(email, link)
 
         if pagado:
             context.user_data["pagado"] = tipo
-            context.user_data["email"] = email
-
             if tipo == "inicio":
                 stats["ingresos_inicio"] += 1
                 guardar_stats(stats)
                 await update.message.reply_text(
-                    "✅ Pago verificado. Tienes 1 consulta disponible.",
+                    t(update, "pago_ok"),
                     reply_markup=InlineKeyboardMarkup([
-                        [InlineKeyboardButton("▶️ Continuar", callback_data="inicio_verificado")]
+                        [InlineKeyboardButton(t(update, "continuar"), callback_data="inicio_verificado")]
                     ])
                 )
             elif tipo == "sintoma":
@@ -498,9 +793,7 @@ async def texto(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 guardar_stats(stats)
                 context.user_data["modo_sintomas"] = True
                 await update.message.reply_text(
-                    "✅ Pago verificado. Tienes 1 consulta disponible.\n\n"
-                    "🧠 Describe el síntoma:\n"
-                    "_Ej: humo blanco, falta potencia, no arranca..._",
+                    t(update, "pago_ok") + "\n\n" + t(update, "intro_sintoma"),
                     parse_mode="Markdown"
                 )
             elif tipo == "codigo":
@@ -508,21 +801,15 @@ async def texto(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 guardar_stats(stats)
                 context.user_data["modo_codigo"] = True
                 await update.message.reply_text(
-                    "✅ Pago verificado. Tienes 1 consulta disponible.\n\n"
-                    "🔍 Introduce el código de error:\n"
-                    "_Formato: SPN FMI número (ej: 111 FMI 1)_",
+                    t(update, "pago_ok") + "\n\n" + t(update, "intro_codigo"),
                     parse_mode="Markdown"
                 )
         else:
             await update.message.reply_text(
-                "❌ No se encontró el pago con ese email.\n\n"
-                "Comprueba que:\n"
-                "• El email es correcto\n"
-                "• El pago está completado\n"
-                "• Espera unos segundos y reintenta",
+                t(update, "pago_error"),
                 reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton("🔄 Reintentar", callback_data=f"confirmar_{tipo}")],
-                    [InlineKeyboardButton("🔙 Volver", callback_data="volver")]
+                    [InlineKeyboardButton(t(update, "reintentar"), callback_data=f"confirmar_{tipo}")],
+                    [InlineKeyboardButton(t(update, "volver"), callback_data="volver")]
                 ])
             )
         return
@@ -536,11 +823,7 @@ async def texto(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if not resultados:
             await update.message.reply_text(
-                "❌ Código no encontrado.\n\n"
-                "Formato correcto: *SPN FMI número*\n"
-                "Ejemplo: `111 FMI 1`\n\n"
-                "Vuelve a introducir el código:",
-                parse_mode="Markdown"
+                t(update, "codigo_no_encontrado"), parse_mode="Markdown"
             )
             return
 
@@ -552,17 +835,16 @@ async def texto(update: Update, context: ContextTypes.DEFAULT_TYPE):
             diag = "\n".join([f"  • {x}" for x in data["diag"]])
             msg = (
                 f"🔍 *{clave}*\n"
-                f"🏷 Sistema: {data['sistema']}\n"
+                f"{t(update, 'sistema')}: {data['sistema']}\n"
                 f"📋 {data['desc']}\n\n"
-                f"🔧 *Pasos diagnóstico:*\n{diag}"
+                f"{t(update, 'pasos')}\n{diag}"
             )
             await update.message.reply_text(msg, parse_mode="Markdown")
-            await lanzar_encuesta(update.message)
+            await lanzar_encuesta(update.message, update)
         else:
             lista = "\n".join([f"• *{k}* — {v['desc']}" for k, v in resultados[:8]])
             await update.message.reply_text(
-                f"🔎 {len(resultados)} coincidencias:\n\n{lista}\n\n"
-                "Introduce el código *completo*. Ejemplo: `111 FMI 1`",
+                t(update, "coincidencias", n=len(resultados), lista=lista),
                 parse_mode="Markdown"
             )
         return
@@ -582,14 +864,12 @@ async def texto(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 break
         if not encontrado:
             await update.message.reply_text(
-                "❌ Síntoma no reconocido.\n\n"
-                "Prueba con: _humo blanco, humo negro, falta potencia, no arranca, tirones, consumo alto, fallo adblue..._",
-                parse_mode="Markdown"
+                t(update, "sintoma_no_encontrado"), parse_mode="Markdown"
             )
-        await lanzar_encuesta(update.message)
+        await lanzar_encuesta(update.message, update)
         return
 
-    await update.message.reply_text("Selecciona el servicio:", reply_markup=btn_inicio(user_id))
+    await update.message.reply_text(t(update, "menu"), reply_markup=btn_inicio(update, user_id))
 
 # =====================================================================
 # APP
@@ -600,5 +880,5 @@ app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(botones))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, texto))
 
-print("✅ Bot IVECO OK 🚛")
+print("✅ Bot IVECO Multiidioma OK 🚛")
 app.run_polling(drop_pending_updates=True)
